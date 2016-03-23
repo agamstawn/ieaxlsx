@@ -1,0 +1,64 @@
+<div class="col-md-4 blog-main box text-center block" id="article_<%= article.id %>">
+  <div class="panel panel-info">
+    <div class="panel panel-heading">
+      <h3 class="panel-title"><%= article.title %></h3>
+    </div>
+    <div class="panel-body">
+      <p><%= article.content %></p>
+      <div style="color:#388D26;"><%= time_ago_in_words(article.created_at)%></div>
+      <br>
+      <hr>
+      <div class="panel panel-heading">
+        <h3>Comments</h3>
+        <% article.comments.each do |comment| %>
+          <%= comment.content %>
+          <br/>
+        <% end %>
+      </div>
+      <br>
+      <div class="btn-group", role="group", aria-label="...">
+        <button type="button", class="btn btn_warning" id="btnedit" data-target="#muparticle_<%= article.id %>">
+          Edit  
+        </button>
+        <%= link_to 'Destroy', article, class:"btn btn-danger", remote: true %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= form_for(article, :method => :put, remote: true) do |f| %>
+  <!-- Modal -->
+  <div class="modal fade" id="muparticle_<%= article.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Article</h4>
+        </div>
+        <div class="modal-body">
+          <div class="field">
+            <%= render 'form' %>
+          </div>
+          <div class="modal-footer">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="addarticlesclose">Close</button>
+              </div>
+              <div class="col-md-6">
+                <%= f.submit :submit, class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+  <% end %>
+</div>
+<br>
+<%= javascript_include_tag 'bootstrap' %>
+<script type="text/javascript">
+  $('#btnedit').on("click", function(){
+              $("#muparticle_<%= article.id %>").modal('show');
+              
+    });
+</script>

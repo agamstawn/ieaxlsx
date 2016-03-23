@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <h2>Import Articles</h2>
+    <%= form_tag import_articles_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import" %>
+    <% end %>
+  </div>
+  <br>
+  <hr>
+  <div class="row">
+    <p>
+      Download:
+  <%= link_to "CSV", articles_path(format: "csv") %> |
+  <%= link_to "Excel", articles_path(format: "xls") %>
+    </p>
+  </div>
+  <div class="row">
+    <div class="text-center">
+      <%= form_tag articles_path, :method => 'get' do %>
+        <%= text_field_tag :search, params[:search]%>
+        <%= submit_tag "Search by Title" %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="row">
+    <div class="text-center">
+      <button type="button" class="btn btn_primary btn-lg" id="btnadd" data-target="#mnarticle">
+        Add Article
+      </button>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="row">
+    <div class="page_links">
+      <%= will_paginate @articles, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="row" id="container_articles">
+    <%= render @articles %>
+  </div>
+  <%= form_for(@article, remote: true) do |f| %>
+    <!-- Modal -->
+    <div class="modal fade" id="mnarticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Article</h4>
+          </div>
+          <div class="modal-body">
+            <%= render 'form' %>
+          </div>
+          <div class="modal-footer">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="mnarticleclose">Close</button>
+              </div>
+              <div class="col-md-6">
+                <%= f.submit :submit , class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+  <% end %>
+</div>
+
+<%= javascript_include_tag 'bootstrap' %>
+<script type="text/javascript">
+  $('#btnadd').on("click", function(){
+        $("#mnarticle").modal('show'); 
+         
+    });
+</script>

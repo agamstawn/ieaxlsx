@@ -1,0 +1,7 @@
+how to fix strong parameters accessible_attributes on rails 4
+
+
+=================================show html article=====================
+<h3><%= @article.title %></h3>
+<p><%= @article.content %></p>
+<p><%= link_to 'back to index', articles_path %></p>

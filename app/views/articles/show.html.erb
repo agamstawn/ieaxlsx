@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Article:</strong>
+  <%= @article.title %>
+</p>
+<h2>Comments</h2>
+<% if @article.comments.any? %>
+  <ul>
+    <% @article.comments.each do |comment| %>
+      <li><%= link_to comment, comment %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>none available</p>
+<% end %>
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

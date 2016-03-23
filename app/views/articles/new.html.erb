@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @article do |f| %>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+      <%= @article.errors[:title].first unless @article.errors[:title].blank? %>
+      <br/>
+      <%= f.label :content %>
+      <%= f.text_area :content, cols: 20, rows: 10 %>
+      <%= @article.errors[:content].first unless @article.errors[:content].blank? %>
+      <br/>
+      <%= f.label :status %>
+      <%= f.radio_button :status, "active" %>
+      <%= label :article_status, 'active' %>
+      <%= f.radio_button :status, "off", :checked => true %>
+      <%= label :article_status, 'off' %>
+      <br/>
+      <%= f.submit :submit, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

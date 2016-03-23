@@ -1,0 +1,14 @@
+$("#mnarticle").modal('hide');
+$(".article_title").val('');
+$(".article_content").val('');
+$
+
+$("#container_articles").prepend('<%= j render @article %>');
+$("#article_<%= @article.id %>").hide().fadeIn(1000);
+
+// // alert("ajax work")
+
+// $('#btnadd').on("click", function(){
+//         $("#mnarticle").modal('show'); 
+//         $("#container_articles").prepend('<%= j render @article %>'); 
+//   });
